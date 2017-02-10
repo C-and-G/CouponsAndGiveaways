@@ -5,5 +5,6 @@
 	[Password] [nvarchar](50) NOT NULL,
 	[VerificationStatus] [bit] NOT NULL DEFAULT 0,
  CONSTRAINT [PK_LoginDetails] PRIMARY KEY CLUSTERED ([UserId] ASC),
- CONSTRAINT [Unique_MemberId] UNIQUE ([MemberId])
+ CONSTRAINT [Unique_MemberId] UNIQUE ([MemberId]),
+ CONSTRAINT [FK_LoginDetails_UserDetails] FOREIGN KEY([MemberId]) REFERENCES [dbo].[UserDetails] ([MemberId])
 )

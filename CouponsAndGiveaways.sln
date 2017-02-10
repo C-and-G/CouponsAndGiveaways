@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26127.3
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Giveaways", "Giveaways\Giveaways.sqlproj", "{371E778A-8596-4E22-B5D9-53254B8CAEEE}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.Giveaways", "Giveaways\Database.Giveaways.sqlproj", "{371E778A-8596-4E22-B5D9-53254B8CAEEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

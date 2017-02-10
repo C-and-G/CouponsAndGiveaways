@@ -2,8 +2,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
-    <TargetDatabaseName>Database.Giveaways</TargetDatabaseName>
+    <TargetDatabaseName>master</TargetDatabaseName>
     <DeployScriptFileName>Database.Giveaways.sql</DeployScriptFileName>
+    <TargetConnectionString>Data Source=GACDTL01SP617H\SQLEXPRESS;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
   </PropertyGroup>
 </Project>

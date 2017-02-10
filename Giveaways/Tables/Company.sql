@@ -1,8 +1,5 @@
 ﻿CREATE TABLE [dbo].[Company](
-	[CompanyID] [int] NOT NULL,
+	[CompanyId] [int] NOT NULL,
 	[CompanyName] [varchar](50) NOT NULL,
- CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED 
-(
-	[CompanyID] ASC
-)
+ CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED ([CompanyId] ASC)
 )

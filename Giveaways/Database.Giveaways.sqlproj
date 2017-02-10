@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Giveaways</Name>
+    <Name>Database.Giveaways</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{371e778a-8596-4e22-b5d9-53254b8caeee}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -23,7 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <TargetDatabase>Giveaways</TargetDatabase>
+    <TargetDatabase>Database.Giveaways</TargetDatabase>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -72,5 +72,8 @@
     <Build Include="Tables\UserDetails.sql" />
     <Build Include="Tables\VideoHistory.sql" />
     <Build Include="Tables\VideoURLs.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database.Giveaways.publish.xml" />
   </ItemGroup>
 </Project>
