@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GiveawaysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyBranches">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressCont" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zip" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CouponCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Giveaways">
+          <Key>
+            <PropertyRef Name="GiveawayId" />
+          </Key>
+          <Property Name="GiveawayId" Type="int" Nullable="false" />
+          <Property Name="GiveawayTypeId" Type="int" Nullable="false" />
+          <Property Name="GiveawayStatus" Type="bit" />
+          <Property Name="GiveawayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GiveawaysAvailable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="GiveawayId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GiveawayType">
+          <Key>
+            <PropertyRef Name="GiveawayTypeId" />
+          </Key>
+          <Property Name="GiveawayTypeId" Type="int" Nullable="false" />
+          <Property Name="GiveawayTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="MemberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VerificationStatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RedemptionHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GiveawayId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VideoHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WatchedInZip" Type="int" Nullable="false" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VideoURLs">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="int" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CompanyBranches_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanyBranches" Type="Self.CompanyBranches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompanyBranches">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giveaways_GiveawayType">
+          <End Role="GiveawayType" Type="Self.GiveawayType" Multiplicity="1" />
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiveawayType">
+              <PropertyRef Name="GiveawayTypeId" />
+            </Principal>
+            <Dependent Role="Giveaways">
+              <PropertyRef Name="GiveawayTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_Company">
+          <End Role="CompanyBranches" Type="Self.CompanyBranches" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanyBranches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_CouponCategory">
+          <End Role="CouponCategory" Type="Self.CouponCategory" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CouponCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_Giveaways">
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giveaways">
+              <PropertyRef Name="GiveawayId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="GiveawayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginDetails_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="LoginDetails" Type="Self.LoginDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="LoginDetails">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionHistory_Giveaways">
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="1" />
+          <End Role="RedemptionHistory" Type="Self.RedemptionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giveaways">
+              <PropertyRef Name="GiveawayId" />
+            </Principal>
+            <Dependent Role="RedemptionHistory">
+              <PropertyRef Name="GiveawayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionHistory_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="RedemptionHistory" Type="Self.RedemptionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="RedemptionHistory">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoHistory_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="VideoHistory" Type="Self.VideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="VideoHistory">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoHistory_VideoURLs">
+          <End Role="VideoURLs" Type="Self.VideoURLs" Multiplicity="1" />
+          <End Role="VideoHistory" Type="Self.VideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoURLs">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="VideoHistory">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoURLs_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="VideoURLs" Type="Self.VideoURLs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="VideoURLs">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiveawaysModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyBranches" EntityType="Self.CompanyBranches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CouponCategory" EntityType="Self.CouponCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giveaways" EntityType="Self.Giveaways" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GiveawaysAvailable" EntityType="Self.GiveawaysAvailable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GiveawayType" EntityType="Self.GiveawayType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RedemptionHistory" EntityType="Self.RedemptionHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoHistory" EntityType="Self.VideoHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoURLs" EntityType="Self.VideoURLs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CompanyBranches_Company" Association="Self.FK_CompanyBranches_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyBranches" EntitySet="CompanyBranches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giveaways_GiveawayType" Association="Self.FK_Giveaways_GiveawayType">
+            <End Role="GiveawayType" EntitySet="GiveawayType" />
+            <End Role="Giveaways" EntitySet="Giveaways" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_Company" Association="Self.FK_GiveawaysAvailable_Company">
+            <End Role="CompanyBranches" EntitySet="CompanyBranches" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_CouponCategory" Association="Self.FK_GiveawaysAvailable_CouponCategory">
+            <End Role="CouponCategory" EntitySet="CouponCategory" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_Giveaways" Association="Self.FK_GiveawaysAvailable_Giveaways">
+            <End Role="Giveaways" EntitySet="Giveaways" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginDetails_UserDetails" Association="Self.FK_LoginDetails_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="LoginDetails" EntitySet="LoginDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionHistory_Giveaways" Association="Self.FK_RedemptionHistory_Giveaways">
+            <End Role="Giveaways" EntitySet="Giveaways" />
+            <End Role="RedemptionHistory" EntitySet="RedemptionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionHistory_UserDetails" Association="Self.FK_RedemptionHistory_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="RedemptionHistory" EntitySet="RedemptionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoHistory_UserDetails" Association="Self.FK_VideoHistory_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="VideoHistory" EntitySet="VideoHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoHistory_VideoURLs" Association="Self.FK_VideoHistory_VideoURLs">
+            <End Role="VideoURLs" EntitySet="VideoURLs" />
+            <End Role="VideoHistory" EntitySet="VideoHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoURLs_Company" Association="Self.FK_VideoURLs_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="VideoURLs" EntitySet="VideoURLs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiveawaysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CompanyBranches" Relationship="Self.FK_CompanyBranches_Company" FromRole="Company" ToRole="CompanyBranches" />
+          <NavigationProperty Name="VideoURLs" Relationship="Self.FK_VideoURLs_Company" FromRole="Company" ToRole="VideoURLs" />
+        </EntityType>
+        <EntityType Name="CompanyBranches">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressCont" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zip" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_CompanyBranches_Company" FromRole="CompanyBranches" ToRole="Company" />
+          <NavigationProperty Name="GiveawaysAvailable" Relationship="Self.FK_GiveawaysAvailable_Company" FromRole="CompanyBranches" ToRole="GiveawaysAvailable" />
+        </EntityType>
+        <EntityType Name="CouponCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GiveawaysAvailable" Relationship="Self.FK_GiveawaysAvailable_CouponCategory" FromRole="CouponCategory" ToRole="GiveawaysAvailable" />
+        </EntityType>
+        <EntityType Name="Giveaways">
+          <Key>
+            <PropertyRef Name="GiveawayId" />
+          </Key>
+          <Property Name="GiveawayId" Type="Int32" Nullable="false" />
+          <Property Name="GiveawayTypeId" Type="Int32" Nullable="false" />
+          <Property Name="GiveawayStatus" Type="Boolean" />
+          <Property Name="GiveawayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GiveawayType" Relationship="Self.FK_Giveaways_GiveawayType" FromRole="Giveaways" ToRole="GiveawayType" />
+          <NavigationProperty Name="GiveawaysAvailable" Relationship="Self.FK_GiveawaysAvailable_Giveaways" FromRole="Giveaways" ToRole="GiveawaysAvailable" />
+          <NavigationProperty Name="RedemptionHistory" Relationship="Self.FK_RedemptionHistory_Giveaways" FromRole="Giveaways" ToRole="RedemptionHistory" />
+        </EntityType>
+        <EntityType Name="GiveawaysAvailable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="GiveawayId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompanyBranches" Relationship="Self.FK_GiveawaysAvailable_Company" FromRole="GiveawaysAvailable" ToRole="CompanyBranches" />
+          <NavigationProperty Name="CouponCategory" Relationship="Self.FK_GiveawaysAvailable_CouponCategory" FromRole="GiveawaysAvailable" ToRole="CouponCategory" />
+          <NavigationProperty Name="Giveaways" Relationship="Self.FK_GiveawaysAvailable_Giveaways" FromRole="GiveawaysAvailable" ToRole="Giveaways" />
+        </EntityType>
+        <EntityType Name="GiveawayType">
+          <Key>
+            <PropertyRef Name="GiveawayTypeId" />
+          </Key>
+          <Property Name="GiveawayTypeId" Type="Int32" Nullable="false" />
+          <Property Name="GiveawayTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Giveaways" Relationship="Self.FK_Giveaways_GiveawayType" FromRole="GiveawayType" ToRole="Giveaways" />
+        </EntityType>
+        <EntityType Name="LoginDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="MemberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VerificationStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_LoginDetails_UserDetails" FromRole="LoginDetails" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="RedemptionHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GiveawayId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Giveaways" Relationship="Self.FK_RedemptionHistory_Giveaways" FromRole="RedemptionHistory" ToRole="Giveaways" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_RedemptionHistory_UserDetails" FromRole="RedemptionHistory" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LoginDetails" Relationship="Self.FK_LoginDetails_UserDetails" FromRole="UserDetails" ToRole="LoginDetails" />
+          <NavigationProperty Name="RedemptionHistory" Relationship="Self.FK_RedemptionHistory_UserDetails" FromRole="UserDetails" ToRole="RedemptionHistory" />
+          <NavigationProperty Name="VideoHistory" Relationship="Self.FK_VideoHistory_UserDetails" FromRole="UserDetails" ToRole="VideoHistory" />
+        </EntityType>
+        <EntityType Name="VideoHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WatchedInZip" Type="Int32" Nullable="false" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_VideoHistory_UserDetails" FromRole="VideoHistory" ToRole="UserDetails" />
+          <NavigationProperty Name="VideoURLs" Relationship="Self.FK_VideoHistory_VideoURLs" FromRole="VideoHistory" ToRole="VideoURLs" />
+        </EntityType>
+        <EntityType Name="VideoURLs">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_VideoURLs_Company" FromRole="VideoURLs" ToRole="Company" />
+          <NavigationProperty Name="VideoHistory" Relationship="Self.FK_VideoHistory_VideoURLs" FromRole="VideoURLs" ToRole="VideoHistory" />
+        </EntityType>
+        <Association Name="FK_CompanyBranches_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanyBranches" Type="Self.CompanyBranches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompanyBranches">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoURLs_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="VideoURLs" Type="Self.VideoURLs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="VideoURLs">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_Company">
+          <End Role="CompanyBranches" Type="Self.CompanyBranches" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanyBranches">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_CouponCategory">
+          <End Role="CouponCategory" Type="Self.CouponCategory" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CouponCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giveaways_GiveawayType">
+          <End Role="GiveawayType" Type="Self.GiveawayType" Multiplicity="1" />
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiveawayType">
+              <PropertyRef Name="GiveawayTypeId" />
+            </Principal>
+            <Dependent Role="Giveaways">
+              <PropertyRef Name="GiveawayTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiveawaysAvailable_Giveaways">
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="1" />
+          <End Role="GiveawaysAvailable" Type="Self.GiveawaysAvailable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giveaways">
+              <PropertyRef Name="GiveawayId" />
+            </Principal>
+            <Dependent Role="GiveawaysAvailable">
+              <PropertyRef Name="GiveawayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionHistory_Giveaways">
+          <End Role="Giveaways" Type="Self.Giveaways" Multiplicity="1" />
+          <End Role="RedemptionHistory" Type="Self.RedemptionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giveaways">
+              <PropertyRef Name="GiveawayId" />
+            </Principal>
+            <Dependent Role="RedemptionHistory">
+              <PropertyRef Name="GiveawayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginDetails_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="LoginDetails" Type="Self.LoginDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="LoginDetails">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionHistory_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="RedemptionHistory" Type="Self.RedemptionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="RedemptionHistory">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoHistory_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="VideoHistory" Type="Self.VideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="VideoHistory">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoHistory_VideoURLs">
+          <End Role="VideoURLs" Type="Self.VideoURLs" Multiplicity="1" />
+          <End Role="VideoHistory" Type="Self.VideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoURLs">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="VideoHistory">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiveawaysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="CompanyBranches" EntityType="Self.CompanyBranches" />
+          <EntitySet Name="CouponCategory" EntityType="Self.CouponCategory" />
+          <EntitySet Name="Giveaways" EntityType="Self.Giveaways" />
+          <EntitySet Name="GiveawaysAvailable" EntityType="Self.GiveawaysAvailable" />
+          <EntitySet Name="GiveawayType" EntityType="Self.GiveawayType" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetails" />
+          <EntitySet Name="RedemptionHistory" EntityType="Self.RedemptionHistory" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" />
+          <EntitySet Name="VideoHistory" EntityType="Self.VideoHistory" />
+          <EntitySet Name="VideoURLs" EntityType="Self.VideoURLs" />
+          <AssociationSet Name="FK_CompanyBranches_Company" Association="Self.FK_CompanyBranches_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyBranches" EntitySet="CompanyBranches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoURLs_Company" Association="Self.FK_VideoURLs_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="VideoURLs" EntitySet="VideoURLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_Company" Association="Self.FK_GiveawaysAvailable_Company">
+            <End Role="CompanyBranches" EntitySet="CompanyBranches" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_CouponCategory" Association="Self.FK_GiveawaysAvailable_CouponCategory">
+            <End Role="CouponCategory" EntitySet="CouponCategory" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giveaways_GiveawayType" Association="Self.FK_Giveaways_GiveawayType">
+            <End Role="GiveawayType" EntitySet="GiveawayType" />
+            <End Role="Giveaways" EntitySet="Giveaways" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiveawaysAvailable_Giveaways" Association="Self.FK_GiveawaysAvailable_Giveaways">
+            <End Role="Giveaways" EntitySet="Giveaways" />
+            <End Role="GiveawaysAvailable" EntitySet="GiveawaysAvailable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionHistory_Giveaways" Association="Self.FK_RedemptionHistory_Giveaways">
+            <End Role="Giveaways" EntitySet="Giveaways" />
+            <End Role="RedemptionHistory" EntitySet="RedemptionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginDetails_UserDetails" Association="Self.FK_LoginDetails_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="LoginDetails" EntitySet="LoginDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionHistory_UserDetails" Association="Self.FK_RedemptionHistory_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="RedemptionHistory" EntitySet="RedemptionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoHistory_UserDetails" Association="Self.FK_VideoHistory_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="VideoHistory" EntitySet="VideoHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoHistory_VideoURLs" Association="Self.FK_VideoHistory_VideoURLs">
+            <End Role="VideoURLs" EntitySet="VideoURLs" />
+            <End Role="VideoHistory" EntitySet="VideoHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiveawaysModelStoreContainer" CdmEntityContainer="GiveawaysEntities">
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="GiveawaysModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyBranches">
+            <EntityTypeMapping TypeName="GiveawaysModel.CompanyBranches">
+              <MappingFragment StoreEntitySet="CompanyBranches">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="AddressCont" ColumnName="AddressCont" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CouponCategory">
+            <EntityTypeMapping TypeName="GiveawaysModel.CouponCategory">
+              <MappingFragment StoreEntitySet="CouponCategory">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Giveaways">
+            <EntityTypeMapping TypeName="GiveawaysModel.Giveaways">
+              <MappingFragment StoreEntitySet="Giveaways">
+                <ScalarProperty Name="GiveawayId" ColumnName="GiveawayId" />
+                <ScalarProperty Name="GiveawayTypeId" ColumnName="GiveawayTypeId" />
+                <ScalarProperty Name="GiveawayStatus" ColumnName="GiveawayStatus" />
+                <ScalarProperty Name="GiveawayName" ColumnName="GiveawayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GiveawaysAvailable">
+            <EntityTypeMapping TypeName="GiveawaysModel.GiveawaysAvailable">
+              <MappingFragment StoreEntitySet="GiveawaysAvailable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GiveawayId" ColumnName="GiveawayId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GiveawayType">
+            <EntityTypeMapping TypeName="GiveawaysModel.GiveawayType">
+              <MappingFragment StoreEntitySet="GiveawayType">
+                <ScalarProperty Name="GiveawayTypeId" ColumnName="GiveawayTypeId" />
+                <ScalarProperty Name="GiveawayTypeName" ColumnName="GiveawayTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginDetails">
+            <EntityTypeMapping TypeName="GiveawaysModel.LoginDetails">
+              <MappingFragment StoreEntitySet="LoginDetails">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="VerificationStatus" ColumnName="VerificationStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RedemptionHistory">
+            <EntityTypeMapping TypeName="GiveawaysModel.RedemptionHistory">
+              <MappingFragment StoreEntitySet="RedemptionHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GiveawayId" ColumnName="GiveawayId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="GiveawaysModel.UserDetails">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoHistory">
+            <EntityTypeMapping TypeName="GiveawaysModel.VideoHistory">
+              <MappingFragment StoreEntitySet="VideoHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="WatchedInZip" ColumnName="WatchedInZip" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoURLs">
+            <EntityTypeMapping TypeName="GiveawaysModel.VideoURLs">
+              <MappingFragment StoreEntitySet="VideoURLs">
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

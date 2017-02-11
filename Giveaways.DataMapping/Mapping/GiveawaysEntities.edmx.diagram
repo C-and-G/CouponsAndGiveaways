@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1e7525c2d3234d648d77e4fc42b51dfa" Name="Diagram1">
+        <EntityTypeShape EntityType="GiveawaysModel.Company" Width="1.5" PointX="1.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.CompanyBranches" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.CouponCategory" Width="1.5" PointX="3.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.Giveaways" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.GiveawaysAvailable" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.GiveawayType" Width="1.5" PointX="1.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.LoginDetails" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.RedemptionHistory" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.UserDetails" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.VideoHistory" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveawaysModel.VideoURLs" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <AssociationConnector Association="GiveawaysModel.FK_CompanyBranches_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_VideoURLs_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_GiveawaysAvailable_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_GiveawaysAvailable_CouponCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_Giveaways_GiveawayType" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_GiveawaysAvailable_Giveaways" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_RedemptionHistory_Giveaways" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_LoginDetails_UserDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_RedemptionHistory_UserDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_VideoHistory_UserDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveawaysModel.FK_VideoHistory_VideoURLs" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
