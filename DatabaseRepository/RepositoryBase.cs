@@ -11,16 +11,20 @@ namespace DatabaseRepository
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected DateTime Today
-        {
-            get { return DateTime.Now.Date; }
-        }
-
-        protected int MaxPageLimitForExport = int.MaxValue;
+        public readonly DateTime Today = DateTime.Now.Date;
 
         protected DbContext DbContext { get; set; }
 
         protected DbSet<T> DbSet { get; set; }
+
+        public RepositoryBase(IDatabaseFactory databaseFactory)
+        {
+            DbContext dbContext = databaseFactory.GetGiveawaysEntitiesContext();
+            if (dbContext == null)
+                throw new ArgumentNullException("Null DbContext");
+            DbContext = dbContext;
+            DbSet = DbContext.Set<T>();
+        }
 
         public RepositoryBase(DbContext dbContext)
         {
