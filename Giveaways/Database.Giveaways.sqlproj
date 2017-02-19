@@ -75,5 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.Giveaways.publish.xml" />
+    <None Include="Database_2.Giveaways.publish.xml" />
   </ItemGroup>
 </Project>

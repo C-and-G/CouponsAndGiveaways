@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseRepository", "Datab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giveaways.Services", "Giveaways.Services\Giveaways.Services.csproj", "{2ED746B7-C3C8-40FE-BE68-A3D7DA609100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giveaways.Api", "Giveaways.Api\Giveaways.Api.csproj", "{113AB0AE-7EA3-4CB3-A46A-741F725666BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{28AA41FC-0FE6-4D9A-86E7-783CFBBD1965}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{2ED746B7-C3C8-40FE-BE68-A3D7DA609100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED746B7-C3C8-40FE-BE68-A3D7DA609100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED746B7-C3C8-40FE-BE68-A3D7DA609100}.Release|Any CPU.Build.0 = Release|Any CPU
-		{113AB0AE-7EA3-4CB3-A46A-741F725666BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{113AB0AE-7EA3-4CB3-A46A-741F725666BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{113AB0AE-7EA3-4CB3-A46A-741F725666BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{113AB0AE-7EA3-4CB3-A46A-741F725666BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28AA41FC-0FE6-4D9A-86E7-783CFBBD1965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28AA41FC-0FE6-4D9A-86E7-783CFBBD1965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28AA41FC-0FE6-4D9A-86E7-783CFBBD1965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28AA41FC-0FE6-4D9A-86E7-783CFBBD1965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
