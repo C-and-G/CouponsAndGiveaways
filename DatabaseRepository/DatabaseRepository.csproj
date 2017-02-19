@@ -52,7 +52,9 @@
     <Compile Include="Interfaces\IDatabaseFactory.cs" />
     <Compile Include="Interfaces\ILoginDetailsRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserDetailsRepository.cs" />
     <Compile Include="Repositories\LoginDetailsRepository.cs" />
+    <Compile Include="Repositories\UserDetailsRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="Interfaces\IRepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

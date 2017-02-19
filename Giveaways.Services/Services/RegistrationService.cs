@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DatabaseRepository.Interfaces;
+using Giveaways.DataMapping.Mapping;
+using Giveaways.Services.Interfaces;
+using Giveaways.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -7,35 +11,76 @@ using System.Threading.Tasks;
 
 namespace Giveaways.Services
 {
-    public class RegistrationService
+    public class RegistrationService : IRegistrationService
     {
-        public string UserId { get; set; }
-        public string Salt { get; set; }
-        public string Password { get; set; }
-        public int MemberId { get; set; }
-        public string HashedPassword { get; set; }
+        public IUserDetailsRepository UserDetailsRepository;
+        public IUnitOfWork UnitOfWork;
+        public ILoginDetailsRepository LoginDetailsRepository;
         
-        private void CreateSalt()
+        public RegistrationService(IUserDetailsRepository userDetailsRepository, IUnitOfWork unitOfWork, ILoginDetailsRepository loginDetailsRepository)
         {
+            this.UserDetailsRepository = userDetailsRepository;
+            this.UnitOfWork = unitOfWork;
+            this.LoginDetailsRepository = loginDetailsRepository;
+        }
+        private string CreateSalt()
+        {
+            var salt = string.Empty;
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {
                 byte[] data = new byte[4];
                 rng.GetBytes(data);
-                Salt = BitConverter.ToString(data);
+                salt = BitConverter.ToString(data);
             }
+            return salt;
         }
 
-        private void GenerateHashValue()
+        private string GenerateHashValue(string salt, string password)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(Salt + Password));
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(salt + password));
             byte[] result = md5.Hash;
             StringBuilder strBuilder = new StringBuilder();
             foreach(var i in result)
             {
                 strBuilder.Append(i.ToString("x2"));
             }
-            HashedPassword = strBuilder.ToString();
+            return strBuilder.ToString();
+        }
+
+        public bool RegisterUser(UserRegistration user)
+        {
+            var userDetails = new UserDetails();
+            var existingUser = UserDetailsRepository.GetAll().FirstOrDefault(p => p.Email == user.Email);
+            if (existingUser != null)
+                return false;
+            populateUserDetails(userDetails, user);
+            UserDetailsRepository.Add(userDetails);
+            UnitOfWork.Commit();
+            var loginDetails = new LoginDetails();
+            loginDetails.MemberId = userDetails.MemberId;
+            populateLoginDetails(loginDetails, user);
+            LoginDetailsRepository.Add(loginDetails);
+            this.UnitOfWork.Commit();
+            return true;
+        }
+
+        private void populateLoginDetails(LoginDetails loginDetails, UserRegistration user)
+        {
+            loginDetails.Salt = CreateSalt();
+            loginDetails.Password = GenerateHashValue(loginDetails.Salt, loginDetails.Password);
+            loginDetails.UserId = user.Email;
+            loginDetails.VerificationStatus = false;
+        }
+
+        private void populateUserDetails(UserDetails userDetails, UserRegistration user)
+        {
+            userDetails.Age = user.Age;
+            userDetails.Email = user.Email;
+            userDetails.FirstName = user.FirstName;
+            userDetails.Gender = user.Gender;
+            userDetails.LastName = user.LastName;
+            userDetails.MemberId = Guid.NewGuid().ToString();
         }
     }
 }
