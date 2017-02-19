@@ -20,6 +20,7 @@ namespace Api.Controllers
             this.LoginService = loginService;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult AuthenticateUser([FromBody]UserLogin user)
         {
@@ -31,6 +32,7 @@ namespace Api.Controllers
             return Ok(false);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody]UserRegistration user)
         {

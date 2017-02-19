@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseRepository
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IDatabaseFactory databaseFactory;
         private DbContext giveawaysEntitiesContext;

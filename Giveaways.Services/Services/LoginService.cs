@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using DatabaseRepository.Interfaces;
 using System.Security.Cryptography;
+using Giveaways.Services.Models;
+using Giveaways.Services.Interfaces;
 
 namespace Giveaways.Services.Services
 {
-    public class LoginService
+    public class LoginService : ILoginService
     {
         private readonly ILoginDetailsRepository LoginDetailsRepository;
 

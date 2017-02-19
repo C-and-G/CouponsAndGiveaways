@@ -8,7 +8,7 @@ using Giveaways.DataMapping.Mapping;
 
 namespace DatabaseRepository
 {
-    class DatabaseFactory : Disposable, IDatabaseFactory
+    public class DatabaseFactory : Disposable, IDatabaseFactory
     {
         private GiveawaysEntities giveawaysEntitiesContext;
 

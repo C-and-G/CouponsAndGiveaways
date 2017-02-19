@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Giveaways.Services
+namespace Giveaways.Services.Services
 {
     public class RegistrationService : IRegistrationService
     {
@@ -54,18 +54,20 @@ namespace Giveaways.Services
             var existingUser = UserDetailsRepository.GetAll().FirstOrDefault(p => p.Email == user.Email);
             if (existingUser != null)
                 return false;
-            populateUserDetails(userDetails, user);
+            PopulateUserDetails(userDetails, user);
             UserDetailsRepository.Add(userDetails);
             UnitOfWork.Commit();
-            var loginDetails = new LoginDetails();
-            loginDetails.MemberId = userDetails.MemberId;
-            populateLoginDetails(loginDetails, user);
+            var loginDetails = new LoginDetails()
+            {
+                MemberId = userDetails.MemberId
+            };
+            PopulateLoginDetails(loginDetails, user);
             LoginDetailsRepository.Add(loginDetails);
             this.UnitOfWork.Commit();
             return true;
         }
 
-        private void populateLoginDetails(LoginDetails loginDetails, UserRegistration user)
+        private void PopulateLoginDetails(LoginDetails loginDetails, UserRegistration user)
         {
             loginDetails.Salt = CreateSalt();
             loginDetails.Password = GenerateHashValue(loginDetails.Salt, loginDetails.Password);
@@ -73,7 +75,7 @@ namespace Giveaways.Services
             loginDetails.VerificationStatus = false;
         }
 
-        private void populateUserDetails(UserDetails userDetails, UserRegistration user)
+        private void PopulateUserDetails(UserDetails userDetails, UserRegistration user)
         {
             userDetails.Age = user.Age;
             userDetails.Email = user.Email;
