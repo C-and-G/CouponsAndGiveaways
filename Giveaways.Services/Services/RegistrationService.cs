@@ -1,5 +1,7 @@
-﻿using DatabaseRepository.Interfaces;
-using Giveaways.DataMapping.Mapping;
+﻿using DatabaseRepository;
+using DatabaseRepository.Interfaces;
+using DatabaseRepository.Models;
+using DatabaseRepository.Repositories;
 using Giveaways.Services.Interfaces;
 using Giveaways.Services.Models;
 using System;
@@ -17,12 +19,14 @@ namespace Giveaways.Services.Services
         public IUnitOfWork UnitOfWork;
         public ILoginDetailsRepository LoginDetailsRepository;
         
-        public RegistrationService(IUserDetailsRepository userDetailsRepository, IUnitOfWork unitOfWork, ILoginDetailsRepository loginDetailsRepository)
+        public RegistrationService()
         {
-            this.UserDetailsRepository = userDetailsRepository;
-            this.UnitOfWork = unitOfWork;
-            this.LoginDetailsRepository = loginDetailsRepository;
+            IDatabaseFactory databaseFactory = new DatabaseFactory();
+            UserDetailsRepository = new UserDetailsRepository(databaseFactory);
+            UnitOfWork = new UnitOfWork(databaseFactory);
+            LoginDetailsRepository = new LoginDetailsRepository(databaseFactory);
         }
+
         private string CreateSalt()
         {
             var salt = string.Empty;

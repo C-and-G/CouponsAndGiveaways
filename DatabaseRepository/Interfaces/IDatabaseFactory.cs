@@ -1,4 +1,4 @@
-﻿using Giveaways.DataMapping.Mapping;
+﻿using DatabaseRepository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

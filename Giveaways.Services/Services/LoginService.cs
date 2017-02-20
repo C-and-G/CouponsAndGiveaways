@@ -7,6 +7,8 @@ using DatabaseRepository.Interfaces;
 using System.Security.Cryptography;
 using Giveaways.Services.Models;
 using Giveaways.Services.Interfaces;
+using DatabaseRepository;
+using DatabaseRepository.Repositories;
 
 namespace Giveaways.Services.Services
 {
@@ -14,9 +16,10 @@ namespace Giveaways.Services.Services
     {
         private readonly ILoginDetailsRepository LoginDetailsRepository;
 
-        public LoginService(ILoginDetailsRepository loginDetailsRepository)
+        public LoginService()
         {
-            this.LoginDetailsRepository = loginDetailsRepository;
+            IDatabaseFactory databaseFactory = new DatabaseFactory();
+            LoginDetailsRepository = new LoginDetailsRepository(databaseFactory);
         }
 
         public bool ValidateUser(string userId, string password)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Giveaways.DataMapping.Mapping;
+using DatabaseRepository.Models;
 
 namespace DatabaseRepository
 {

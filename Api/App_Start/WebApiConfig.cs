@@ -22,23 +22,18 @@ namespace Api
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            var builder = new ContainerBuilder();
-
-            builder.RegisterType<LoginService>().As<ILoginService>();
-            builder.RegisterType<RegistrationService>().As<IRegistrationService>();
-            builder.RegisterType<LoginDetailsRepository>().As<ILoginDetailsRepository>();
-            builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>();
-
-            var container = builder.Build();
-
-            using (var scope = container.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<ILoginService>();
-            }
+            config.MessageHandlers.Add(new CompressionDelegateHandler());
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All;
+            json.UseDataContractJsonSerializer = true;
+            json.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+            json.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+            config.Formatters.Add(json);
         }
     }
 }

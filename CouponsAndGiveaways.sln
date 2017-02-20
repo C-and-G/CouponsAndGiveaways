@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.Giveaways", "Giveaways\Database.Giveaways.sqlproj", "{371E778A-8596-4E22-B5D9-53254B8CAEEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giveaways.DataMapping", "Giveaways.DataMapping\Giveaways.DataMapping.csproj", "{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseRepository", "DatabaseRepository\DatabaseRepository.csproj", "{D652E95D-3C32-4D27-AFF0-6346213C360D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giveaways.Services", "Giveaways.Services\Giveaways.Services.csproj", "{2ED746B7-C3C8-40FE-BE68-A3D7DA609100}"
@@ -25,10 +23,6 @@ Global
 		{371E778A-8596-4E22-B5D9-53254B8CAEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371E778A-8596-4E22-B5D9-53254B8CAEEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{371E778A-8596-4E22-B5D9-53254B8CAEEE}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D652E95D-3C32-4D27-AFF0-6346213C360D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D652E95D-3C32-4D27-AFF0-6346213C360D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D652E95D-3C32-4D27-AFF0-6346213C360D}.Release|Any CPU.ActiveCfg = Release|Any CPU

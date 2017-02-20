@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +55,54 @@
     <Compile Include="Interfaces\ILoginDetailsRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUserDetailsRepository.cs" />
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyBranches.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CouponCategory.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Giveaways.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiveawaysAvailable.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiveawaysEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveawaysEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiveawaysEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiveawaysEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveawaysEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiveawayType.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginDetails.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RedemptionHistory.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserDetails.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VideoHistory.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VideoURLs.cs">
+      <DependentUpon>GiveawaysEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\LoginDetailsRepository.cs" />
     <Compile Include="Repositories\UserDetailsRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
@@ -61,15 +111,30 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Giveaways.DataMapping\Giveaways.DataMapping.csproj">
-      <Project>{be3c4226-b6f6-41ad-8507-c4f68a2d3c04}</Project>
-      <Name>Giveaways.DataMapping</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Models\GiveawaysEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GiveawaysEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\GiveawaysEntities.edmx.diagram">
+      <DependentUpon>GiveawaysEntities.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Models\GiveawaysEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GiveawaysEntities.edmx</DependentUpon>
+      <LastGenOutput>GiveawaysEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\GiveawaysEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GiveawaysEntities.edmx</DependentUpon>
+      <LastGenOutput>GiveawaysEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

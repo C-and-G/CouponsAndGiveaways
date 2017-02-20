@@ -1,6 +1,9 @@
 ﻿using Api.Models;
+using DatabaseRepository;
+using DatabaseRepository.Interfaces;
 using Giveaways.Services.Interfaces;
 using Giveaways.Services.Models;
+using Giveaways.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,60 +18,42 @@ namespace Api.Controllers
         public ILoginService LoginService;
         public IRegistrationService RegistrationService;
 
-        public LoginController(ILoginService loginService)
+        public LoginController()
         {
-            this.LoginService = loginService;
+            this.LoginService = new LoginService();
+            this.RegistrationService = new RegistrationService();
         }
 
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult AuthenticateUser([FromBody]UserLogin user)
         {
+            if(!ModelState.IsValid)
+            {
+                return Content(HttpStatusCode.BadRequest, "ModelState is not valid");
+            }
             bool authResult = LoginService.ValidateUser(user.UserName, user.Password);
             if(authResult)
             {
                 return Ok(true);
             }
-            return Ok(false);
+            return Content(HttpStatusCode.BadRequest, "Authentication failed");
         }
 
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody]UserRegistration user)
         {
+            if (!ModelState.IsValid)
+            {
+                return Content(HttpStatusCode.BadRequest, "ModelState is not valid");
+            }
             bool result = RegistrationService.RegisterUser(user);
             if(result)
             {
                 return Ok(true);
             }
-            return Ok(false);
-        }
-
-        // GET: api/Login
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Login/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Login
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Login/5
-        public void Delete(int id)
-        {
+            return Content(HttpStatusCode.BadRequest, "Registration Failed");
         }
     }
 }

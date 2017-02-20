@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,10 +52,6 @@
     <ProjectReference Include="..\DatabaseRepository\DatabaseRepository.csproj">
       <Project>{d652e95d-3c32-4d27-aff0-6346213c360d}</Project>
       <Name>DatabaseRepository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Giveaways.DataMapping\Giveaways.DataMapping.csproj">
-      <Project>{BE3C4226-B6F6-41AD-8507-C4F68A2D3C04}</Project>
-      <Name>Giveaways.DataMapping</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
