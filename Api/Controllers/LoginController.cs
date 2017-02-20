@@ -10,9 +10,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Api.Controllers
 {
+    [EnableCors(origins: "http://couponsandgiveawaysapi.azurewebsites.net", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
         public ILoginService LoginService;
@@ -54,6 +56,13 @@ namespace Api.Controllers
                 return Ok(true);
             }
             return Content(HttpStatusCode.BadRequest, "Registration Failed");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public string login()
+        {
+            return "login";
         }
     }
 }

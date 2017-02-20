@@ -34,6 +34,8 @@ namespace Api
             json.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
             json.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             config.Formatters.Add(json);
+
+            config.EnableCors();
         }
     }
 }
